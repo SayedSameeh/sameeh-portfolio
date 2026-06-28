@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    color: white;
+    font-family: Inter, sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+    background-color: #050816;
+}
+
+/* ROOT BACKGROUND LAYER */
+
+#root {
+    position: relative;
+    z-index: 1;
+}
+
+/* GRID */
+
+#root::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(0,217,255,0.08) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0,217,255,0.08) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+
+    pointer-events: none;
+
+    z-index: -2;
+}
+
+/* BIG RIGHT GLOW */
+
+#root::after {
+    content: "";
+
+    position: fixed;
+
+    width: 700px;
+    height: 700px;
+
+    top: 0;
+    right: -200px;
+
+    border-radius: 50%;
+
+    background: rgba(0,217,255,0.12);
+
+    filter: blur(180px);
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+section {
+    scroll-margin-top: 100px;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050816;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0,217,255,0.5);
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,217,255,0.8);
+}
