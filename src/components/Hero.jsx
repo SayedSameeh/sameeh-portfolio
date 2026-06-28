@@ -184,7 +184,7 @@ function Hero() {
             />
 
             <p className="text-center text-cyan-400 mt-4 tracking-[0.3em]">
-              EVE v0.1
+              EVE v0.2
             </p>
 
           </motion.div>
