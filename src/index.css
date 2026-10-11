@@ -90,20 +90,20 @@ section {
 }
 
 .journey-trail-shadow {
-  stroke: rgba(5, 8, 22, 0.18);
-  stroke-width: 104;
+  stroke: rgba(5, 8, 22, 0.14);
+  stroke-width: 44;
 }
 
 .journey-trail-surface {
   stroke: #24384a;
-  stroke-width: 82;
-  opacity: 0.24;
+  stroke-width: 32;
+  opacity: 0.16;
 }
 
 .journey-trail-center {
   stroke: #60758a;
-  stroke-width: 54;
-  opacity: 0.08;
+  stroke-width: 18;
+  opacity: 0.05;
 }
 
 html[data-theme="day"] .journey-trail-shadow {
@@ -112,12 +112,12 @@ html[data-theme="day"] .journey-trail-shadow {
 
 html[data-theme="day"] .journey-trail-surface {
   stroke: #dfcfad;
-  opacity: 0.24;
+  opacity: 0.14;
 }
 
 html[data-theme="day"] .journey-trail-center {
   stroke: #f2e7d0;
-  opacity: 0.5;
+  opacity: 0.28;
 }
 
 .torii-gate {
