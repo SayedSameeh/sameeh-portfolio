@@ -66,9 +66,9 @@ section {
   scroll-margin-top: 100px;
 }
 
-/* One generated vertical illustration carries the hike from the hero to the footer. */
+/* Pan a portrait illustration behind the page instead of stretching it to page height. */
 .journey-backdrop {
-  position: absolute;
+  position: fixed;
   z-index: -1;
   inset: 0;
   overflow: hidden;
@@ -77,17 +77,20 @@ section {
 
 .journey-backdrop-image {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 50%;
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-  opacity: 0.38;
+  width: auto;
+  height: 300vh;
+  max-width: none;
+  transform: translate3d(-50%, var(--journey-offset, 0px), 0);
+  opacity: 0.42;
   filter: saturate(0.82);
+  will-change: transform;
 }
 
 html:not([data-theme="day"]) .journey-backdrop-image {
-  opacity: 0.32;
+  opacity: 0.34;
   filter: brightness(0.48) saturate(0.7);
 }
 
@@ -348,6 +351,11 @@ html[data-theme="day"] ::-webkit-scrollbar-thumb:hover {
 }
 
 @media (max-width: 760px) {
+  .journey-backdrop-image {
+    left: 61%;
+    height: 200vh;
+  }
+
   .hero-section {
     min-height: clamp(700px, 90svh, 900px);
   }

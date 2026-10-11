@@ -19,6 +19,55 @@ function App() {
     localStorage.setItem("sameeh-portfolio-theme", theme);
   }, [theme]);
 
+  useEffect(() => {
+    let frame = 0;
+
+    const updateJourneyPosition = () => {
+      if (frame) return;
+
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        const image = document.querySelector(".journey-backdrop-image");
+        const hero = document.querySelector(".hero-section");
+        if (!image || !hero) return;
+
+        const maxScroll = Math.max(
+          1,
+          document.documentElement.scrollHeight - window.innerHeight,
+        );
+        const heroHeight = hero.offsetHeight;
+        const imageTravel = Math.max(
+          0,
+          image.getBoundingClientRect().height - window.innerHeight,
+        );
+        const trailStart = image.getBoundingClientRect().height * 0.27;
+        const heroProgress = Math.min(1, window.scrollY / heroHeight);
+        const pageProgress = Math.max(
+          0,
+          Math.min(1, (window.scrollY - heroHeight) / Math.max(1, maxScroll - heroHeight)),
+        );
+        const imageOffset =
+          heroProgress * trailStart +
+          pageProgress * Math.max(0, imageTravel - trailStart);
+
+        document.documentElement.style.setProperty(
+          "--journey-offset",
+          `${-imageOffset}px`,
+        );
+      });
+    };
+
+    updateJourneyPosition();
+    window.addEventListener("scroll", updateJourneyPosition, { passive: true });
+    window.addEventListener("resize", updateJourneyPosition);
+
+    return () => {
+      window.removeEventListener("scroll", updateJourneyPosition);
+      window.removeEventListener("resize", updateJourneyPosition);
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
   return (
     <>
       <JourneyBackdrop />
