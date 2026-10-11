@@ -44,9 +44,13 @@ function App() {
         const imageHeight = image.getBoundingClientRect().height;
         const trailStart = imageHeight * 0.27;
         const gatePosition = imageHeight * 0.78;
+        const gateTargetY = Math.max(
+          0,
+          window.innerHeight - footer.offsetHeight - 100,
+        );
         const gateAtFooter = Math.max(
           trailStart,
-          gatePosition - (window.innerHeight - footer.offsetHeight * 0.65),
+          gatePosition - gateTargetY,
         );
         const heroProgress = Math.min(1, window.scrollY / heroHeight);
         const pageProgress = Math.max(
@@ -60,6 +64,12 @@ function App() {
         document.documentElement.style.setProperty(
           "--journey-offset",
           `${-imageOffset}px`,
+        );
+        const horizontalPosition =
+          window.innerWidth <= 760 ? 25 + pageProgress * 55 : 50;
+        document.documentElement.style.setProperty(
+          "--journey-x",
+          `${horizontalPosition}%`,
         );
       });
     };

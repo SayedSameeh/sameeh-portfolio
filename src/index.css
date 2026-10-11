@@ -78,7 +78,7 @@ section {
 .journey-backdrop-image {
   position: absolute;
   top: 0;
-  left: 50%;
+  left: var(--journey-x, 50%);
   display: block;
   width: auto;
   height: 300vh;
@@ -352,7 +352,6 @@ html[data-theme="day"] ::-webkit-scrollbar-thumb:hover {
 
 @media (max-width: 760px) {
   .journey-backdrop-image {
-    left: 61%;
     height: 260vh;
   }
 
