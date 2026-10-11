@@ -353,7 +353,7 @@ html[data-theme="day"] ::-webkit-scrollbar-thumb:hover {
 @media (max-width: 760px) {
   .journey-backdrop-image {
     left: 61%;
-    height: 200vh;
+    height: 260vh;
   }
 
   .hero-section {

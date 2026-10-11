@@ -29,7 +29,8 @@ function App() {
         frame = 0;
         const image = document.querySelector(".journey-backdrop-image");
         const hero = document.querySelector(".hero-section");
-        if (!image || !hero) return;
+        const footer = document.querySelector("footer");
+        if (!image || !hero || !footer) return;
 
         const maxScroll = Math.max(
           1,
@@ -40,7 +41,13 @@ function App() {
           0,
           image.getBoundingClientRect().height - window.innerHeight,
         );
-        const trailStart = image.getBoundingClientRect().height * 0.27;
+        const imageHeight = image.getBoundingClientRect().height;
+        const trailStart = imageHeight * 0.27;
+        const gatePosition = imageHeight * 0.78;
+        const gateAtFooter = Math.max(
+          trailStart,
+          gatePosition - (window.innerHeight - footer.offsetHeight * 0.65),
+        );
         const heroProgress = Math.min(1, window.scrollY / heroHeight);
         const pageProgress = Math.max(
           0,
@@ -48,7 +55,7 @@ function App() {
         );
         const imageOffset =
           heroProgress * trailStart +
-          pageProgress * Math.max(0, imageTravel - trailStart);
+          pageProgress * Math.max(0, Math.min(imageTravel, gateAtFooter) - trailStart);
 
         document.documentElement.style.setProperty(
           "--journey-offset",
