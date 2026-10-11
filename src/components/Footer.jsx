@@ -11,10 +11,12 @@ function Footer() {
     >
       <div className="torii-gate" aria-hidden="true">
         <svg viewBox="0 0 240 180" focusable="false">
-          <path d="M18 27h204l-13 17H31z" />
-          <path d="M38 52h164v13H38z" />
-          <path d="M55 48h17v100H55zm113 0h17v100h-17z" />
-          <path d="M61 119h118v12H61z" />
+          <path className="torii-shadow" d="M22 42 34 27q86-22 172 0l12 15q-98-13-196 0Z" />
+          <path className="torii-crossbeam" d="M43 53h154v16H43z" />
+          <path className="torii-post" d="m54 62 18 2-7 93H47zm114 2 18-2 7 93h-18z" />
+          <path className="torii-bracket" d="M52 76h136v10H52z" />
+          <path className="torii-base" d="M43 154h33v8H43zm121 0h33v8h-33z" />
+          <path className="torii-nameplate" d="M110 70h20v37h-20z" />
         </svg>
       </div>
       <span>SAMEEH.EXE © 2026</span>

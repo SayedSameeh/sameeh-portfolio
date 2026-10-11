@@ -68,7 +68,7 @@ section {
   scroll-margin-top: 100px;
 }
 
-/* A quiet path winds behind the page content and leads to the footer gate. */
+/* A stone trail winds from the hero figures down the page to the footer gate. */
 .journey-backdrop {
   position: absolute;
   z-index: -1;
@@ -89,40 +89,52 @@ section {
   stroke-linejoin: round;
 }
 
-.journey-trail-shadow {
-  stroke: rgba(5, 8, 22, 0.14);
-  stroke-width: 44;
+.journey-trail-edge {
+  stroke: rgba(14, 22, 31, 0.2);
+  stroke-width: 108;
 }
 
-.journey-trail-surface {
-  stroke: #24384a;
-  stroke-width: 32;
-  opacity: 0.16;
+.journey-trail-earth {
+  stroke: #35404a;
+  stroke-width: 98;
+  opacity: 0.38;
 }
 
-.journey-trail-center {
-  stroke: #60758a;
-  stroke-width: 18;
-  opacity: 0.05;
+.journey-trail-gravel {
+  stroke: #8f9aa0;
+  stroke-width: 78;
+  opacity: 0.2;
 }
 
-html[data-theme="day"] .journey-trail-shadow {
-  stroke: rgba(95, 74, 47, 0.12);
+.journey-trail-stones {
+  stroke: #d6d0c5;
+  stroke-width: 42;
+  stroke-dasharray: 1 66;
+  opacity: 0.42;
 }
 
-html[data-theme="day"] .journey-trail-surface {
-  stroke: #dfcfad;
-  opacity: 0.14;
+html[data-theme="day"] .journey-trail-edge {
+  stroke: rgba(100, 75, 47, 0.18);
 }
 
-html[data-theme="day"] .journey-trail-center {
-  stroke: #f2e7d0;
-  opacity: 0.28;
+html[data-theme="day"] .journey-trail-earth {
+  stroke: #bba27b;
+  opacity: 0.5;
+}
+
+html[data-theme="day"] .journey-trail-gravel {
+  stroke: #e8d9bd;
+  opacity: 0.58;
+}
+
+html[data-theme="day"] .journey-trail-stones {
+  stroke: #fff7e8;
+  opacity: 0.8;
 }
 
 .torii-gate {
-  width: min(11rem, 48vw);
-  margin: 0 auto 1.25rem;
+  width: min(16rem, 64vw);
+  margin: 0 auto 1rem;
   color: var(--torii-color);
   filter: drop-shadow(0 8px 20px color-mix(in srgb, var(--torii-color) 24%, transparent));
 }
@@ -131,7 +143,25 @@ html[data-theme="day"] .journey-trail-center {
   display: block;
   width: 100%;
   height: auto;
-  fill: currentColor;
+  overflow: visible;
+}
+
+.torii-gate .torii-shadow {
+  fill: color-mix(in srgb, var(--torii-color) 64%, #341c22);
+}
+
+.torii-gate .torii-crossbeam,
+.torii-gate .torii-post,
+.torii-gate .torii-bracket {
+  fill: var(--torii-color);
+}
+
+.torii-gate .torii-base {
+  fill: #777873;
+}
+
+.torii-gate .torii-nameplate {
+  fill: color-mix(in srgb, var(--torii-color) 72%, #f2d9a0);
 }
 
 /* Full-bleed artwork and live HTML copy for the portfolio hero. */
