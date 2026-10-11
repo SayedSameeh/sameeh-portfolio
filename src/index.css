@@ -9,19 +9,7 @@
   --hero-copy: #f8fafc;
   --hero-muted: #dbe6ee;
   --hero-accent: #bae6fd;
-  --hero-nav-bg: rgba(5, 8, 22, 0.64);
-}
-
-html[data-theme="day"] {
-  color-scheme: light;
-  --page-bg: #f8f5ef;
-  --page-fg: #17212b;
-  --accent: #b94253;
-  --panel-bg: rgba(255, 252, 247, 0.84);
-  --hero-copy: #17212b;
-  --hero-muted: #35424c;
-  --hero-accent: #a33143;
-  --hero-nav-bg: rgba(255, 252, 247, 0.68);
+  --hero-nav-bg: rgba(5, 8, 22, 0.78);
 }
 
 html {
@@ -42,7 +30,6 @@ body,
 body {
   overflow-x: hidden;
   background-color: var(--page-bg);
-  transition: color 300ms ease, background-color 300ms ease;
 }
 
 #root {
@@ -59,14 +46,13 @@ body {
   pointer-events: none;
   z-index: -2;
   background: var(--page-bg);
-  transition: background-color 300ms ease;
 }
 
 section {
   scroll-margin-top: 100px;
 }
 
-/* Pan a portrait illustration behind the page instead of stretching it to page height. */
+/* Pan the portrait illustration while keeping it wider than the viewport. */
 .journey-backdrop {
   position: fixed;
   z-index: -1;
@@ -81,7 +67,7 @@ section {
   left: var(--journey-x, 50%);
   display: block;
   width: auto;
-  height: 300vh;
+  height: max(300vh, 180vw);
   max-width: none;
   transform: translate3d(-50%, var(--journey-offset, 0px), 0);
   opacity: 0.42;
@@ -89,7 +75,7 @@ section {
   will-change: transform;
 }
 
-html:not([data-theme="day"]) .journey-backdrop-image {
+.journey-backdrop-image {
   opacity: 0.34;
   filter: brightness(0.48) saturate(0.7);
 }
@@ -119,23 +105,6 @@ html:not([data-theme="day"]) .journey-backdrop-image {
   height: 100%;
   object-fit: cover;
   object-position: center 54%;
-  transition: opacity 700ms ease;
-}
-
-.hero-scenery-day {
-  opacity: 1;
-}
-
-.hero-scenery-night {
-  opacity: 0;
-}
-
-html:not([data-theme="day"]) .hero-scenery-day {
-  opacity: 0;
-}
-
-html:not([data-theme="day"]) .hero-scenery-night {
-  opacity: 1;
 }
 
 .hero-scenery::after {
@@ -145,18 +114,14 @@ html:not([data-theme="day"]) .hero-scenery-night {
   background:
     linear-gradient(90deg, rgba(4, 9, 18, 0.92) 0%, rgba(4, 9, 18, 0.74) 32%, rgba(4, 9, 18, 0.2) 61%, rgba(4, 9, 18, 0.04) 100%),
     linear-gradient(0deg, rgba(4, 9, 18, 0.46), transparent 35%);
-  transition: background 400ms ease;
-}
-
-html[data-theme="day"] .hero-scenery::after {
-  background:
-    linear-gradient(90deg, rgba(255, 250, 239, 0.94) 0%, rgba(255, 250, 239, 0.82) 31%, rgba(255, 250, 239, 0.24) 60%, rgba(255, 250, 239, 0.02) 100%),
-    linear-gradient(0deg, rgba(255, 250, 239, 0.42), transparent 35%);
 }
 
 .hero-nav {
-  border-color: rgba(226, 232, 240, 0.24);
+  border: 1px solid rgba(226, 232, 240, 0.24);
+  border-radius: 1.25rem;
+  padding: 0.9rem clamp(1rem, 3vw, 2rem);
   background: var(--hero-nav-bg);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
 }
 
 .hero-nav .nav-links a {
@@ -167,12 +132,6 @@ html[data-theme="day"] .hero-scenery::after {
 
 .hero-nav .nav-links a:hover {
   color: var(--hero-accent);
-}
-
-.hero-nav .theme-toggle {
-  color: var(--hero-copy);
-  border-color: color-mix(in srgb, var(--hero-copy) 34%, transparent);
-  background: color-mix(in srgb, var(--hero-nav-bg) 72%, transparent);
 }
 
 .hero-content {
@@ -253,86 +212,6 @@ html[data-theme="day"] .hero-scenery::after {
   background: color-mix(in srgb, var(--hero-copy) 10%, transparent);
 }
 
-/* Recolor existing Tailwind utilities so every section follows the same mode. */
-html[data-theme="day"] [class~="bg-slate-900/70"] {
-  background-color: var(--panel-bg) !important;
-}
-
-html[data-theme="day"] [class~="bg-[#050816]/80"] {
-  background-color: rgba(255, 252, 247, 0.88) !important;
-}
-
-html[data-theme="day"] [class~="bg-white/5"] {
-  background-color: rgba(255, 255, 255, 0.58) !important;
-}
-
-html[data-theme="day"] [class~="bg-gray-800"] {
-  background-color: rgba(23, 33, 43, 0.12) !important;
-}
-
-html[data-theme="day"] [class~="bg-cyan-500"] {
-  background-color: #bd4658 !important;
-}
-
-html[data-theme="day"] [class~="bg-cyan-400"] {
-  background-color: #bd4658 !important;
-}
-
-html[data-theme="day"] [class~="bg-cyan-500/10"] {
-  background-color: rgba(189, 70, 88, 0.09) !important;
-}
-
-html[data-theme="day"] [class~="text-cyan-400"],
-html[data-theme="day"] [class~="text-cyan-300"] {
-  color: #a33143 !important;
-}
-
-html[data-theme="day"] [class~="text-gray-300"] {
-  color: #35424c !important;
-}
-
-html[data-theme="day"] [class~="text-gray-400"] {
-  color: #4a5963 !important;
-}
-
-html[data-theme="day"] [class~="text-gray-500"] {
-  color: #5d6870 !important;
-}
-
-html[data-theme="day"] [class~="border-cyan-500/10"],
-html[data-theme="day"] [class~="border-cyan-500/20"],
-html[data-theme="day"] [class~="border-cyan-500/30"] {
-  border-color: rgba(163, 49, 67, 0.24) !important;
-}
-
-html[data-theme="day"] [class~="border-white/10"] {
-  border-color: rgba(23, 33, 43, 0.12) !important;
-}
-
-html[data-theme="day"] [class~="text-black"] {
-  color: #fffaf5 !important;
-}
-
-html[data-theme="day"] [class~="hover:text-cyan-400"]:hover {
-  color: #a33143 !important;
-}
-
-html[data-theme="day"] .theme-toggle {
-  color: #8f2739;
-}
-
-html[data-theme="day"] ::-webkit-scrollbar-track {
-  background: #f4eee5;
-}
-
-html[data-theme="day"] ::-webkit-scrollbar-thumb {
-  background: rgba(163, 49, 67, 0.55);
-}
-
-html[data-theme="day"] ::-webkit-scrollbar-thumb:hover {
-  background: rgba(163, 49, 67, 0.8);
-}
-
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -352,7 +231,7 @@ html[data-theme="day"] ::-webkit-scrollbar-thumb:hover {
 
 @media (max-width: 760px) {
   .journey-backdrop-image {
-    height: 260vh;
+    height: max(260vh, 180vw);
   }
 
   .hero-section {
@@ -377,21 +256,10 @@ html[data-theme="day"] ::-webkit-scrollbar-thumb:hover {
     font-size: clamp(4rem, 17vw, 6.25rem);
   }
 
-  #home nav {
-    align-items: center;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
   #home nav .nav-links {
     width: 100%;
     gap: 0.75rem 1rem;
     justify-content: center;
-  }
-
-  #home nav .theme-toggle {
-    align-self: flex-end;
-    padding: 0.5rem 0.75rem;
   }
 }
 

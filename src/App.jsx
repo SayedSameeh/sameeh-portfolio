@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Hero from "./components/Hero";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
@@ -10,15 +10,6 @@ import ScrollTop from "./components/ScrollTop";
 import JourneyBackdrop from "./components/JourneyBackdrop";
 
 function App() {
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem("sameeh-portfolio-theme") || "night";
-  });
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem("sameeh-portfolio-theme", theme);
-  }, [theme]);
-
   useEffect(() => {
     let frame = 0;
 
@@ -66,7 +57,7 @@ function App() {
           `${-imageOffset}px`,
         );
         const horizontalPosition =
-          window.innerWidth <= 760 ? 25 + pageProgress * 55 : 50;
+          window.innerWidth <= 760 ? 28 + pageProgress * 44 : 50;
         document.documentElement.style.setProperty(
           "--journey-x",
           `${horizontalPosition}%`,
@@ -89,14 +80,7 @@ function App() {
     <>
       <JourneyBackdrop />
 
-      <Hero
-        theme={theme}
-        onToggleTheme={() =>
-          setTheme((currentTheme) =>
-            currentTheme === "night" ? "day" : "night",
-          )
-        }
-      />
+      <Hero />
 
       <Projects />
 
