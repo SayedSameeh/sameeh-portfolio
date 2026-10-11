@@ -1,100 +1,405 @@
 @import "tailwindcss";
 
+:root {
+  color-scheme: dark;
+  --page-bg: #050816;
+  --page-fg: #f8fafc;
+  --accent: #22d3ee;
+  --panel-bg: rgba(15, 23, 42, 0.78);
+  --hero-copy: #f8fafc;
+  --hero-muted: #dbe6ee;
+  --hero-accent: #bae6fd;
+  --hero-nav-bg: rgba(5, 8, 22, 0.64);
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --page-bg: #f8f5ef;
+  --page-fg: #17212b;
+  --accent: #b94253;
+  --panel-bg: rgba(255, 252, 247, 0.84);
+  --hero-copy: #17212b;
+  --hero-muted: #35424c;
+  --hero-accent: #a33143;
+  --hero-nav-bg: rgba(255, 252, 247, 0.68);
+}
+
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
+  background: var(--page-bg);
 }
 
 html,
 body,
 #root {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    color: white;
-    font-family: Inter, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  color: var(--page-fg);
+  font-family: Inter, sans-serif;
 }
 
 body {
-    overflow-x: hidden;
-    background-color: #050816;
+  overflow-x: hidden;
+  background-color: var(--page-bg);
+  transition: color 300ms ease, background-color 300ms ease;
 }
-
-/* ROOT BACKGROUND LAYER */
 
 #root {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
 }
 
-/* GRID */
+/* The two scenic layers crossfade when the day/night switch changes. */
+#root::before,
+#root::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 700ms ease;
+}
 
 #root::before {
-    content: "";
-
-    position: fixed;
-    inset: 0;
-
-    background-image:
-        linear-gradient(
-            rgba(0,217,255,0.08) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(0,217,255,0.08) 1px,
-            transparent 1px
-        );
-
-    background-size: 50px 50px;
-
-    pointer-events: none;
-
-    z-index: -2;
+  opacity: 1;
+  background-image:
+    linear-gradient(rgba(5, 8, 22, 0.38), rgba(5, 8, 22, 0.55)),
+    linear-gradient(rgba(0, 217, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 217, 255, 0.06) 1px, transparent 1px),
+    url("/suzuka-night.png");
+  background-size: cover, 50px 50px, 50px 50px, cover;
 }
 
-/* BIG RIGHT GLOW */
-
 #root::after {
-    content: "";
+  opacity: 0;
+  background-image:
+    linear-gradient(90deg, rgba(255, 251, 244, 0.82), rgba(255, 251, 244, 0.34)),
+    linear-gradient(rgba(53, 67, 78, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(53, 67, 78, 0.045) 1px, transparent 1px),
+    url("/suzuka-day.png");
+  background-size: cover, 50px 50px, 50px 50px, cover;
+}
 
-    position: fixed;
+html[data-theme="light"] #root::before {
+  opacity: 0;
+}
 
-    width: 700px;
-    height: 700px;
-
-    top: 0;
-    right: -200px;
-
-    border-radius: 50%;
-
-    background: rgba(0,217,255,0.12);
-
-    filter: blur(180px);
-
-    pointer-events: none;
-
-    z-index: -1;
+html[data-theme="light"] #root::after {
+  opacity: 1;
 }
 
 section {
-    scroll-margin-top: 100px;
+  scroll-margin-top: 100px;
 }
 
-/* SCROLLBAR */
+/* Full-bleed artwork and live HTML copy for the portfolio hero. */
+.hero-section {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(620px, 80svh, 840px);
+  overflow: hidden;
+}
+
+.hero-scenery {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-scenery-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 54%;
+  transition: opacity 700ms ease;
+}
+
+.hero-scenery-day {
+  opacity: 1;
+}
+
+.hero-scenery-night {
+  opacity: 0;
+}
+
+html[data-theme="night"] .hero-scenery-day,
+html:not([data-theme="light"]) .hero-scenery-day {
+  opacity: 0;
+}
+
+html[data-theme="night"] .hero-scenery-night,
+html:not([data-theme="light"]) .hero-scenery-night {
+  opacity: 1;
+}
+
+.hero-scenery::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(4, 9, 18, 0.92) 0%, rgba(4, 9, 18, 0.74) 32%, rgba(4, 9, 18, 0.2) 61%, rgba(4, 9, 18, 0.04) 100%),
+    linear-gradient(0deg, rgba(4, 9, 18, 0.46), transparent 35%);
+  transition: background 400ms ease;
+}
+
+html[data-theme="light"] .hero-scenery::after {
+  background:
+    linear-gradient(90deg, rgba(255, 250, 239, 0.94) 0%, rgba(255, 250, 239, 0.82) 31%, rgba(255, 250, 239, 0.24) 60%, rgba(255, 250, 239, 0.02) 100%),
+    linear-gradient(0deg, rgba(255, 250, 239, 0.42), transparent 35%);
+}
+
+.hero-nav {
+  border-color: rgba(226, 232, 240, 0.24);
+  background: var(--hero-nav-bg);
+}
+
+.hero-nav .nav-links a {
+  color: var(--hero-muted);
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.hero-nav .nav-links a:hover {
+  color: var(--hero-accent);
+}
+
+.hero-nav .theme-toggle {
+  color: var(--hero-copy);
+  border-color: color-mix(in srgb, var(--hero-copy) 34%, transparent);
+  background: color-mix(in srgb, var(--hero-nav-bg) 72%, transparent);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+}
+
+.hero-copy {
+  width: min(58%, 690px);
+  padding-block: 2.75rem 3.25rem;
+  color: var(--hero-copy);
+}
+
+.hero-eyebrow {
+  margin: 0 0 1.3rem;
+  color: var(--hero-muted);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  line-height: 1.9;
+}
+
+.hero-name {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: "Bodoni MT", "Didot", "Times New Roman", serif;
+  font-size: clamp(5.5rem, 9.2vw, 9.5rem);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 0.82;
+}
+
+.hero-name-accent {
+  margin-top: 0.08em;
+  color: var(--hero-accent);
+}
+
+.hero-description {
+  max-width: 34rem;
+  margin: 1.65rem 0 0;
+  color: var(--hero-muted);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  line-height: 1.55;
+}
+
+.hero-actions {
+  margin-top: 2rem;
+}
+
+.hero-button {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 0 1.35rem;
+  border: 1px solid color-mix(in srgb, var(--hero-copy) 66%, transparent);
+  color: var(--hero-copy);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.hero-button:hover {
+  transform: translateY(-2px);
+  background: var(--hero-copy);
+  color: var(--page-bg);
+}
+
+.hero-button-primary {
+  background: color-mix(in srgb, var(--hero-copy) 10%, transparent);
+}
+
+/* Recolor existing Tailwind utilities so every section follows the same mode. */
+html[data-theme="light"] [class~="bg-slate-900/70"] {
+  background-color: var(--panel-bg) !important;
+}
+
+html[data-theme="light"] [class~="bg-[#050816]/80"] {
+  background-color: rgba(255, 252, 247, 0.88) !important;
+}
+
+html[data-theme="light"] [class~="bg-white/5"] {
+  background-color: rgba(255, 255, 255, 0.58) !important;
+}
+
+html[data-theme="light"] [class~="bg-gray-800"] {
+  background-color: rgba(23, 33, 43, 0.12) !important;
+}
+
+html[data-theme="light"] [class~="bg-cyan-500"] {
+  background-color: #bd4658 !important;
+}
+
+html[data-theme="light"] [class~="bg-cyan-400"] {
+  background-color: #bd4658 !important;
+}
+
+html[data-theme="light"] [class~="bg-cyan-500/10"] {
+  background-color: rgba(189, 70, 88, 0.09) !important;
+}
+
+html[data-theme="light"] [class~="text-cyan-400"],
+html[data-theme="light"] [class~="text-cyan-300"] {
+  color: #a33143 !important;
+}
+
+html[data-theme="light"] [class~="text-gray-300"] {
+  color: #35424c !important;
+}
+
+html[data-theme="light"] [class~="text-gray-400"] {
+  color: #4a5963 !important;
+}
+
+html[data-theme="light"] [class~="text-gray-500"] {
+  color: #5d6870 !important;
+}
+
+html[data-theme="light"] [class~="border-cyan-500/10"],
+html[data-theme="light"] [class~="border-cyan-500/20"],
+html[data-theme="light"] [class~="border-cyan-500/30"] {
+  border-color: rgba(163, 49, 67, 0.24) !important;
+}
+
+html[data-theme="light"] [class~="border-white/10"] {
+  border-color: rgba(23, 33, 43, 0.12) !important;
+}
+
+html[data-theme="light"] [class~="text-black"] {
+  color: #fffaf5 !important;
+}
+
+html[data-theme="light"] [class~="hover:text-cyan-400"]:hover {
+  color: #a33143 !important;
+}
+
+html[data-theme="light"] .theme-toggle {
+  color: #8f2739;
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-track {
+  background: #f4eee5;
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(163, 49, 67, 0.55);
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(163, 49, 67, 0.8);
+}
 
 ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #050816;
+  background: #050816;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0,217,255,0.5);
-    border-radius: 20px;
+  background: rgba(0, 217, 255, 0.5);
+  border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0,217,255,0.8);
-} `
+  background: rgba(0, 217, 255, 0.8);
+}
+
+@media (max-width: 760px) {
+  .hero-section {
+    min-height: clamp(700px, 90svh, 900px);
+  }
+
+  .hero-scenery-image {
+    object-position: 68% center;
+  }
+
+  .hero-content {
+    align-items: flex-start;
+  }
+
+  .hero-copy {
+    width: 100%;
+    max-width: 34rem;
+    padding-block: 2.5rem 3rem;
+  }
+
+  .hero-name {
+    font-size: clamp(4rem, 17vw, 6.25rem);
+  }
+
+  #home nav {
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  #home nav .nav-links {
+    width: 100%;
+    gap: 0.75rem 1rem;
+    justify-content: center;
+  }
+
+  #home nav .theme-toggle {
+    align-self: flex-end;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

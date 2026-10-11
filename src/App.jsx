@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Hero from "./components/Hero";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
@@ -8,9 +9,25 @@ import Footer from "./components/Footer";
 import ScrollTop from "./components/ScrollTop";
 
 function App() {
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("sameeh-portfolio-theme") || "night";
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("sameeh-portfolio-theme", theme);
+  }, [theme]);
+
   return (
     <>
-      <Hero />
+      <Hero
+        theme={theme}
+        onToggleTheme={() =>
+          setTheme((currentTheme) =>
+            currentTheme === "night" ? "day" : "night",
+          )
+        }
+      />
 
       <Projects />
 
