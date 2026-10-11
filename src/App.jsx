@@ -7,6 +7,7 @@ import Timeline from "./components/Timeline";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ScrollTop from "./components/ScrollTop";
+import JourneyBackdrop from "./components/JourneyBackdrop";
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -20,6 +21,8 @@ function App() {
 
   return (
     <>
+      <JourneyBackdrop />
+
       <Hero
         theme={theme}
         onToggleTheme={() =>
