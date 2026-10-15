@@ -4,6 +4,8 @@ import {
   FaMicrophone,
   FaWhatsapp,
   FaGithub,
+  FaGraduationCap,
+  FaPenNib,
 } from "react-icons/fa";
 
 import {
@@ -64,6 +66,26 @@ const projects = [
       "Analyze and visualize personal computer usage patterns.",
     tech: ["Python", "SQLite"],
     github: null,
+  },
+
+  {
+    icon: <FaGraduationCap />,
+    title: "LMS",
+    subtitle: "Learning Management System",
+    description: "A learning management system built for a hackathon.",
+    tech: ["TypeScript"],
+    github: null,
+  },
+
+  {
+    icon: <FaPenNib />,
+    title: "Handwriting Studio",
+    subtitle: "Handwriting Replication Studio",
+    description:
+      "A Windows desktop app for creating a handwriting font and editing assignment pages.",
+    tech: ["Python", "OCR", "Desktop App"],
+    github:
+      "https://github.com/SayedSameeh/handwriting-replication-studio",
   },
 ];
 
