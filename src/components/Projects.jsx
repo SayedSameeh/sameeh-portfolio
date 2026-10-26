@@ -23,7 +23,7 @@ const projects = [
     description:
       "Real-time Hindi ↔ Marathi speech translation with emotion detection.",
     tech: ["Python", "Whisper", "XTTS"],
-    github: null,
+    github: "https://github.com/SayedSameeh/STTTS-Translator",
   },
 
   {
